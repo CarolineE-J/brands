@@ -16,4 +16,5 @@
 				</tr>
 			</cfloop>
 		</table>
+	<p><a href="#buildUrl(action='main.createbrand')#">Create</a></p>
 </cfoutput>

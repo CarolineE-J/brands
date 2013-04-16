@@ -23,7 +23,7 @@
         <cfreturn data>
     </cffunction>
 
-	<cffunction name="updateBrands" returntype="void" access="public">
+	<cffunction name="updateBrands" access="public" returntype="void">
 		<cfargument name="brandName" type="string" required="true">
 		<cfargument name="slug" type="string" required="true">
 		<cfargument name="brandID" type="numeric" required="true">
@@ -38,8 +38,8 @@
 	</cffunction>
 
 	<cffunction name="createBrands" returntype="boolean" access="public">
-		<cfargument name="newBrandName" type="string" required="true">
-		<cfargument name="newSlug" type="string" required="true">
+		<cfargument name="brandName" type="string" required="true">
+		<cfargument name="slug" type="string" required="true">
 		<cfquery datasource="tester" name="local.create">
 		INSERT INTO tblBrand(
 			BrandName
@@ -49,9 +49,9 @@
 			<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.brandName#" />
 			,<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.slug#" />
 			)
-		SELECT @@ROWCOUNT AS rows_affected
+		/*SELECT @@ROWCOUNT AS rows_affected*/
 		</cfquery>
-		<cfreturn local.create.rows_affected gt 0 />
+		<cfreturn True />
 	</cffunction>
 
 </cfcomponent>

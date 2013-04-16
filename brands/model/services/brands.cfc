@@ -31,7 +31,7 @@
 	<cffunction name="createBrands" returntype="boolean" access="public">
 		<cfargument name="brandName" type="string" required="true"/>
 		<cfargument name="slug" type="string" required="true"/>
-		<cfset local.create = brandDAO.createBrands(arguments.brandName,arguments.slug) />
+		<cfset local.create = brandDAO.createBrands(brandName=arguments.brandName,slug=arguments.slug) />
 		<cfreturn local.create />
 	</cffunction>
 

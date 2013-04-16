@@ -62,8 +62,7 @@
 	</cffunction>
 
 	<cffunction name="createBrand" returntype="void" access="public">
-		<cfargument name="brandName" type="string" required="true"/>
-		<cfargument name="slug" type="string" required="true"/>
+		<cfargument name="rc" type="any" required="true"/>
 		<cfset variables.brand = '' />
 		<cfset rc.formSuccess = "" />
 		<cfset rc.formError = "" />
@@ -73,12 +72,8 @@
 		<cfparam name="rc.slug" default="" />
 		<cfparam name="rc.brandName" default="" />
 
-		<cfset rc.cBrands = getBrandService().createBrands(
-			brandName=arguments.brandName
-			,brandId=arguments.brandId
-		) />
 		<cfif (rc.formSubmit eq 1)>
-			<!--- Edit form has been submitted --->
+			<!--- Create form has been submitted --->
 			<cfif (rc.slug eq "")>
 				<cfset rc.formError = rc.formError & 'Slug is required' />
 			</cfif>
@@ -86,11 +81,11 @@
 				<cfset rc.formError = rc.formError & 'Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-				<cfset rc.brandEdit = getBrandService().updateBrands(
-					brandName=arguments.brandName
-					,slug=arguments.slug
+				<cfset rc.brandCreate = getBrandService().createBrands(
+					brandName=rc.brandName
+					,slug=rc.slug
 				) />
-				<cfif rc.brandEdit = True>
+				<cfif rc.brandCreate = True>
 					<cfset rc.formSuccess = "Brand created successfully."/>
 					<cfset rc.showForm = false />
 				</cfif>
