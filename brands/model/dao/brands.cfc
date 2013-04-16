@@ -14,25 +14,27 @@
 	<cffunction name="brandFromID" access="public" returntype="Query">
     	<cfargument name="brandID" type="numeric" required="yes">
         <cfquery datasource="tester" dbtype="query" name="data">
-        	SELECT BrandID, BrandName, Slug
+        	SELECT BrandID,
+        	BrandName,
+        	Slug
             FROM tblBrand
             WHERE BrandID = <cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.brandID#">
         </cfquery>
         <cfreturn data>
     </cffunction>
 
-	<cffunction name="updateBrands" returntype="boolean" access="public">
+	<cffunction name="updateBrands" returntype="void" access="public">
 		<cfargument name="brandName" type="string" required="true">
 		<cfargument name="slug" type="string" required="true">
-		<cfargument name="brandId" type="int" required="true">
+		<cfargument name="brandID" type="numeric" required="true">
 		<cfquery datasource="tester" name="local.update">
 			UPDATE tblBrand
 			SET BrandName=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.brandName#" />
 			 ,Slug=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.slug#" />
-			 WHERE BrandId=<cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.brandId#" />
-			SELECT @@ROWCOUNT AS rows_affected
+			WHERE BrandId=<cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.brandID#" />
+			/*SELECT ROW_COUNT()*/
 		</cfquery>
-		<cfreturn local.update.rows_affected gt 0 />
+		<!--- <cfreturn local.update.ROW_COUNT gt 0 /> --->
 	</cffunction>
 
 	<cffunction name="createBrands" returntype="boolean" access="public">

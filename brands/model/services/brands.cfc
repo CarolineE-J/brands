@@ -11,19 +11,22 @@
         <cfreturn local.data>
     </cffunction>
 
+    <cffunction name="updateBrands" access="public" output="false">
+		<cfargument name="brandName" type="string" required="true"/>
+		<cfargument name="slug" type="string" required="true"/>
+		<cfargument name="brandID" type="numeric" required="true"/>
+		<cfset local.update = brandDAO.updateBrands(brandName=arguments.brandName
+			,slug=arguments.slug
+			,brandID=arguments.brandID) />
+		<!--- <cfreturn local.update /> --->
+    </cffunction>
+
     <cffunction name="brandFromID" access="public" output="false">
     	<cfargument name="brandID" type="numeric" required="yes">
     	<cfset var brand = brandDAO.brandFromID()>
         <cfreturn brand>
     </cffunction>
 
-    <cffunction name="updateBrands" access="public" output="false">
-		<cfargument name="brandName" type="string" required="true"/>
-		<cfargument name="slug" type="string" required="true"/>
-		<cfargument name="brandId" type="numeric" required="true"/>
-		<cfset local.update = brandDAO.updateBrands(arguments.brandName,arguments.brandId,arguments.slug) />
-		<cfreturn local.update />
-    </cffunction>
 
 	<cffunction name="createBrands" returntype="boolean" access="public">
 		<cfargument name="brandName" type="string" required="true"/>

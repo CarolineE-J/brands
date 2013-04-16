@@ -15,8 +15,7 @@
 	</cffunction>
 
 	<cffunction name="editbrand" returntype="void" access="public">
-		<cfargument name="brandName" type="string" />
-		<cfargument name="slug" type="string" />
+		<cfargument name="rc" type="any" required="true" />
 		<cfset variables.brand = '' />
 		<cfset rc.formSuccess = "" />
 		<cfset rc.formError = "" />
@@ -26,6 +25,10 @@
 		<cfparam name="rc.slug" default="" />
 		<cfparam name="rc.brandName" default="" />
 		<cfparam name="rc.brandID" default="" />
+
+		<cfif (not IsValid("integer", rc.brandID))>
+			<cfthrow message='Brand ID must be numeric' />
+		</cfif>
 
 		<cfif (rc.formSubmit eq 1)>
 			<!--- Edit form has been submitted --->
@@ -37,9 +40,9 @@
 			</cfif>
 			<cfif (rc.formError eq "")>
 				<cfset rc.brandEdit = getBrandService().updateBrands(
-					brandName=arguments.brandName
-					,slug=arguments.slug
-					,brandId=arguments.brandId
+					brandName=rc.brandName
+					,slug=rc.slug
+					,brandID=rc.brandID
 				) />
 				<cfif rc.brandEdit = True>
 					<cfset rc.formSuccess = "Brand saved successfully."/>
