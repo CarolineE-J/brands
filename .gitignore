@@ -1,0 +1,10 @@
+target
+.project
+t.cfm
+settings.xml
+Thumbs.db
+wwwroot/mxunit/
+
+wwwroot/WEB-INF/*
+WEB-INF/*
+.DS_Store

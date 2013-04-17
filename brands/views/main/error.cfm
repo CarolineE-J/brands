@@ -1,2 +1,10 @@
-<h1>Error</h1>
-<cfdump var="#request.exception#">
+<cfoutput>
+
+    <p>#request.exception.cause.message#</p>
+
+    <p>Return to...</p>
+    <p><a href="#buildUrl('main.createbrand')#">Create Brand</a></p>
+
+    <p><a href="#buildUrl('main.default')#">Brand List</a></p>
+
+</cfoutput>

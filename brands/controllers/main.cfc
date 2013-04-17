@@ -32,11 +32,11 @@
 
 		<cfif (rc.formSubmit eq 1)>
 			<!--- Edit form has been submitted --->
-			<cfif (rc.slug eq "")>
-				<cfset rc.formError = rc.formError & 'Slug is required' />
+			<cfif rc.slug eq "">
+				<cfthrow message = 'Error - Slug is required' />
 			</cfif>
-			<cfif (rc.brandName eq "")>
-				<cfset rc.formError = rc.formError & 'Brand Name is required'/>
+			<cfif rc.brandName eq "">
+				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
 				<cfset rc.brandEdit = getBrandService().updateBrands(
@@ -73,12 +73,11 @@
 		<cfparam name="rc.brandName" default="" />
 
 		<cfif (rc.formSubmit eq 1)>
-			<!--- Create form has been submitted --->
-			<cfif (rc.slug eq "")>
-				<cfset rc.formError = rc.formError & 'Slug is required' />
+			<cfif rc.slug eq "">
+				<cfthrow message = 'Error - Slug is required' />
 			</cfif>
-			<cfif (rc.brandName eq "")>
-				<cfset rc.formError = rc.formError & 'Brand Name is required'/>
+			<cfif rc.brandName eq "">
+				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
 				<cfset rc.brandCreate = getBrandService().createBrands(
@@ -86,7 +85,7 @@
 					,slug=rc.slug
 				) />
 				<cfif rc.brandCreate = True>
-					<cfset rc.formSuccess = "Brand created successfully."/>
+					<cfthrow message = "Brand created successfully!"/>
 					<cfset rc.showForm = false />
 				</cfif>
 			</cfif>
