@@ -64,7 +64,6 @@
 	<cffunction name="createBrand" returntype="void" access="public">
 		<cfargument name="rc" type="any" required="true"/>
 		<cfset variables.brand = '' />
-		<cfset rc.formSuccess = "" />
 		<cfset rc.formError = "" />
 		<cfset rc.showForm = true />
 
