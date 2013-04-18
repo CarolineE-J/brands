@@ -16,10 +16,10 @@
 
 	<cffunction name="editbrand" returntype="void" access="public">
 		<cfargument name="rc" type="any" required="true" />
-		<cfset variables.brand = '' />
 		<cfset rc.formSuccess = "" />
 		<cfset rc.formError = "" />
 		<cfset rc.showForm = true />
+		<cfset rc.brandEdit = "" />
 
 		<cfparam name="rc.formSubmit" default="0" />
 		<cfparam name="rc.slug" default="" />
@@ -39,19 +39,17 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-				<cfset rc.brandEdit = getBrandService().updateBrands(
+				<cfset rc.brandEdit = getBrandService().updateBrand(
 					brandName=rc.brandName
 					,slug=rc.slug
 					,brandID=rc.brandID
 				) />
-				<cfif rc.brandEdit = True>
-					<cfset rc.formSuccess = "Brand saved successfully."/>
-					<cfset rc.showForm = false />
-				</cfif>
+				<cfset rc.formSuccess = "Brand saved successfully."/>
+				<cfset rc.showForm = false />
 			<cfelse>
 				<!--- Form not submitted, load brand from DB --->
-				<cfset brand = getBrandService().brandFromID(rc.brandID) />
-				<cfif brand.recordcount>
+				<cfset local.brand = getBrandService().brandFromID(rc.brandID) />
+				<cfif local.brand.recordcount>
 					<cfset rc.slug = brand.Slug />
 					<cfset rc.brandName = brand.BrandName />
 				<cfelse>
@@ -63,7 +61,6 @@
 
 	<cffunction name="createBrand" returntype="void" access="public">
 		<cfargument name="rc" type="any" required="true"/>
-		<cfset variables.brand = '' />
 		<cfset rc.formError = "" />
 		<cfset rc.showForm = true />
 
@@ -79,11 +76,11 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-				<cfset rc.brandCreate = getBrandService().createBrands(
+				<cfset rc.brandCreate = getBrandService().createBrand(
 					brandName=rc.brandName
 					,slug=rc.slug
 				) />
-				<cfif rc.brandCreate = True>
+				<cfif rc.brandCreate eq True>
 					<cfthrow message = "Brand created successfully!"/>
 					<cfset rc.showForm = false />
 				</cfif>
