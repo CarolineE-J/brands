@@ -4,9 +4,9 @@
 	<cfset variables.brands=createObject("component","brands.model.dao.brands") />
 </cffunction>
 
-<cffunction name="updateBrands" access="public" output="false" returntype="void">
-	<cfset local.result = variables.brands.updateBrands(
-		brandName='changing'
+<cffunction name="updateBrand" access="public" output="false" returntype="void">
+	<cfset local.result = variables.brands.updateBrand(
+		brandName='DAO tester'
 		,slug='this should change'
 		,brandID=4
 		) />
