@@ -46,15 +46,6 @@
 				) />
 				<cfset rc.formSuccess = "Brand saved successfully."/>
 				<cfset rc.showForm = false />
-			<cfelse>
-				<!--- Form not submitted, load brand from DB --->
-				<cfset local.brand = getBrandService().brandFromID(rc.brandID) />
-				<cfif local.brand.recordcount>
-					<cfset rc.slug = brand.Slug />
-					<cfset rc.brandName = brand.BrandName />
-				<cfelse>
-					<cfthrow message='Brand does not exist' />
-				</cfif>
 			</cfif>
 		</cfif>
 	</cffunction>
