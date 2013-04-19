@@ -17,10 +17,10 @@ component extends="org.corfield.framework" {
 
 	private function setupApplication() {
 		// setup bean factory
-		var beanfactory = CreateObject("component", "org.corfield.ioc").init("services");
-		setBeanFactory(beanfactory);
+		var bf = CreateObject("component", "org.corfield.ioc").init("model");
+		setBeanFactory(bf);
 
 		// add meta data bean to factory
-		beanFactory.addBean( "brands", new model.dao.brands() );
+		bf.addBean( "brands", new model.dao.brands() );
 	}
 }
