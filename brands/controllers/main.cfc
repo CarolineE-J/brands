@@ -11,7 +11,7 @@
 
 	<cffunction name="default" returntype="void" access="public">
 		<cfargument name="rc" type="any" required="true" />
-		<cfset rc.brandList = brandService.listBrands() />
+		<cfset rc.brandList = getBrandService().listBrands() />
 	</cffunction>
 
 	<cffunction name="editbrand" returntype="void" access="public">
@@ -76,14 +76,12 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-				<cfset rc.brandCreate = getBrandService().createBrand(
+				<cfset brandCreate = getBrandService().createBrand(
 					brandName=rc.brandName
 					,slug=rc.slug
 				) />
-				<cfif rc.brandCreate eq True>
-					<cfthrow message = "Brand created successfully!"/>
-					<cfset rc.showForm = false />
-				</cfif>
+				<cfthrow message = "Brand created successfully!"/>
+				<cfset rc.showForm = false />
 			</cfif>
 		</cfif>
 	</cffunction>
