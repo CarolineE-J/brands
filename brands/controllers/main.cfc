@@ -26,10 +26,6 @@
 		<cfparam name="rc.brandName" default="" />
 		<cfparam name="rc.brandID" default="" />
 
-		<cfif (not IsValid("integer", rc.brandID))>
-			<cfthrow message='Brand ID must be numeric' />
-		</cfif>
-
 		<cfif (rc.formSubmit eq 1)>
 			<!--- Edit form has been submitted --->
 			<cfif rc.slug eq "">
