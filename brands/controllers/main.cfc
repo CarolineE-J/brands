@@ -73,6 +73,8 @@
 				) />
 				<cfthrow message = "Brand created successfully!"/>
 				<cfset rc.showForm = false />
+			<cfelse>
+				<cfthrow message = "Unable to load brand" />
 			</cfif>
 		</cfif>
 	</cffunction>
