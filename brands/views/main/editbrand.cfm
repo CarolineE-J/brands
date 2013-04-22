@@ -2,13 +2,6 @@
     <h2>Edit Brand</h2>
     <p><a href="#buildUrl('main.default')#">Back to Brand List</a></p>
 
-    <cfif rc.formSuccess neq "">
-    	<p>#rc.formSuccess#</p>
-    </cfif>
-    <cfif rc.formError neq "">
-    	<p>#rc.formError#</p>
-    </cfif>
-
     <cfif rc.showForm>
         <form action="#buildUrl(action='main.editbrand', queryString='brandID=' & rc.brandID)#" method="post">
             <input type="hidden" name="formSubmit" value="1" />
