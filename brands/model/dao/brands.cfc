@@ -11,15 +11,23 @@
 		<cfreturn local.data />
 	</cffunction>
 
-	<cffunction name="updateBrand" access="public" returntype="boolean" output="false">
-		<cfargument name="brandName" type="string" required="true">
-		<cfargument name="slug" type="string" required="true">
+	<cffunction name="brandFromID" returntype="Query" access="public" output="false">
 		<cfargument name="brandID" type="numeric" required="true">
+		<cfquery datasource="tester" name="local.data">
+			SELECT BrandID, BrandName, Slug
+            FROM tblBrand
+            WHERE BrandID = <cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.brandID#">
+		</cfquery>
+		<cfreturn local.data />
+	</cffunction>
+
+	<cffunction name="updateBrand" access="public" returntype="boolean" output="false">
+		<cfargument name="bean" type="struct" required="true">
 		<cfquery datasource="tester" name="local.update">
 			UPDATE tblBrand
-			SET BrandName=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.brandName#" />
-				,Slug=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.slug#" />
-			WHERE BrandId=<cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.brandID#" />
+			SET BrandName=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.bean.name#" />
+				,Slug=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.bean.slug#" />
+			WHERE BrandId=<cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.bean.id#" />
 		</cfquery>
 		<cfreturn True />
 	</cffunction>

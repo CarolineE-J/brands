@@ -1,7 +1,10 @@
 <cfcomponent output="false" accessors="true">
 
-	<cfproperty name="brandService" />
-	<cfset brandService = createObject("component","brands.model.services.brands") />
+	<cfproperty name="brandsService" />
+	<cfset brandsService = createObject("component","brands.model.services.brands") />
+	<cfset variables.beanfactory = CreateObject("component", "brands.org.corfield.ioc").init("model/beans") />
+	<cfset variables.brands = variables.beanfactory.getBean("brand") />
+	<cfset variables.brandBean = variables.brands.getMemento() />
 
 	<cffunction name="init" returntype="Any" access="public">
 		<cfargument name="fw" type="any" required="true" />
@@ -11,7 +14,7 @@
 
 	<cffunction name="default" returntype="void" access="public">
 		<cfargument name="rc" type="any" required="true" />
-		<cfset rc.brandList = getBrandService().listBrands() />
+		<cfset rc.brandList = getBrandsService().listBrands() />
 	</cffunction>
 
 	<cffunction name="editbrand" returntype="void" access="public">
@@ -26,7 +29,16 @@
 		<cfparam name="rc.brandName" default="" />
 		<cfparam name="rc.brandID" default="" />
 
-		<cfif (rc.formSubmit eq 1)>
+		<cfset brand=getBrandsService().brandFromID(rc.brandID) />
+
+		<cfif (rc.formSubmit neq 1)>
+			<cfif brand.recordcount >
+				<cfset rc.slug = brand.Slug />
+				<cfset rc.brandName = brand.BrandName />
+			<cfelse>
+				<cfthrow message="Brand does not exist" />
+			</cfif>
+		<cfelse>
 			<!--- Edit form has been submitted --->
 			<cfif rc.slug eq "">
 				<cfthrow message = 'Error - Slug is required' />
@@ -35,12 +47,13 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-				<cfset rc.brandEdit = getBrandService().updateBrand(
-					brandName=rc.brandName
-					,slug=rc.slug
-					,brandID=rc.brandID
+			<cfset local.brandBean = variables.brands.getMemento() && variables.brands.init(name=rc.brandName,slug=rc.slug,id=rc.brandID) />
+			<cfdump var="#local.brandBean#"
+			abort="true" />
+				<cfset rc.brandEdit = getBrandsService().updateBrand(
+					bean=local.brandBean
 				) />
-				<cfset rc.formSuccess = "Brand saved successfully."/>
+				<cfthrow message = "Brand saved successfully."/>
 				<cfset rc.showForm = false />
 			</cfif>
 		</cfif>
@@ -63,7 +76,7 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-				<cfset brandCreate = getBrandService().createBrand(
+				<cfset brandCreate = getBrandsService().createBrand(
 					brandName=rc.brandName
 					,slug=rc.slug
 				) />

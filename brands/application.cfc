@@ -3,6 +3,7 @@ component extends="org.corfield.framework" {
 	this.name = 'website' & Left(Hash(CGI.SERVER_NAME), 10);
 	this.sessionmanagement = true;
 	this.sessiontimeout = CreateTimeSpan(0, 2, 0, 0);
+	property brand;
 
 	variables.framework = {
 		action = 'action',
@@ -17,10 +18,8 @@ component extends="org.corfield.framework" {
 
 	private function setupApplication() {
 		// setup bean factory
-		var bf = CreateObject("component", "org.corfield.ioc").init("model");
-		setBeanFactory(bf);
-
-		// add meta data bean to factory
-		bf.addBean( "brands", new model.dao.brands() );
+		var beanfactory = CreateObject("component", "org.corfield.ioc").init("/model/beans");
+		setBeanFactory(beanfactory);
 	}
+
 }
