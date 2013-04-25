@@ -10,28 +10,30 @@
         <cfset data = {} />
         <cfset this.setSlug(arguments.slug) />
         <cfset this.setBrandName(arguments.name) />
+        <!--- id not always going to be passed in --->
         <cfif structKeyExists(arguments, "id")>
             <cfset this.setBrandID(arguments.id) />
         </cfif>
         <cfreturn this />
     </cffunction>
 
-	<cffunction name="getMemento" access="public" returntype="struct" output="false" >
+	<cffunction name="getMemento" access="public" returntype="struct" output="false" hint="returns data stored from getters and setters">
 		<cfreturn variables.brand />
 	</cffunction>
 
     <cffunction name="validate" access="public" returntype="Array" output="false">
     	<cfset var errors = arrayNew(1) />
-
-    	<!--- Brand ID ---->
+    	<!--- Brand ID not always required (create function) so there's no check to see if it exists only---->
     	<cfif (len(trim(getBrandID())) AND NOT isNumeric(trim(getBrandID())))>
     		<cfset arrayAppend(errors, "ID must be numeric.") />
     	</cfif>
 
+        <!--- Slug will always be required for the bean --->
     	<cfif (NOT len(trim(getSlug())))>
 			<cfset arrayAppend(errors,"Slug is required.") />
 		</cfif>
 
+        <!--- Brand name will always be required for the bean --->
 		<cfif (NOT len(trim(getBrandName())))>
 			<cfset arrayAppend(errors,"Brand Name is required.") />
 		</cfif>
