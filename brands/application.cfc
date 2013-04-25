@@ -5,6 +5,13 @@ component extends="org.corfield.framework" {
 	this.sessiontimeout = CreateTimeSpan(0, 2, 0, 0);
 	property brand;
 
+	property name="brandsService";
+
+	public void function default (required any rc)
+	{
+		rc.brandList = getBrandService().listBrands();
+	}
+
 	variables.framework = {
 		action = 'action',
 		usingSubsystems = false,

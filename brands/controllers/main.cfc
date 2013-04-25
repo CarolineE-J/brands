@@ -9,7 +9,7 @@
 
 	<cffunction name="default" returntype="void" access="public">
 		<cfargument name="rc" type="any" required="true" />
-		<cfset rc.brandList = variables.brandsService.listBrands() />
+		<cfset rc.brandList = brandsService.listBrands() />
 	</cffunction>
 
 	<cffunction name="editbrand" returntype="void" access="public">
@@ -24,7 +24,7 @@
 		<cfparam name="rc.brandName" default="" />
 		<cfparam name="rc.brandID" default="" />
 
-		<cfset brand=getBrandsService().brandFromID(rc.brandID) />
+		<cfset brand=brandsService.brandFromID(rc.brandID) />
 
 		<cfif (rc.formSubmit neq 1)>
 			<cfif brand.recordcount >
@@ -71,7 +71,7 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-				<cfset local.brands = variables.framework.getBean("brand") />
+				<cfset local.brands = getFramework().getBean("brand") />
 				<cfset local.callBean = local.brands.init(name=rc.brandName,slug=rc.slug) />
 				<cfset local.brandBean = local.callBean.getMemento() />
 				<cfset brandCreate = getBrandsService().createBrand(

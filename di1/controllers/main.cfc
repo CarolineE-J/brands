@@ -8,10 +8,10 @@
 
 component output="false" accessors="true"
 {
-	property name="personService";
+	property name="brandsService";
 
 	public void function default (required any rc)
 	{
-		rc.qPeople = getPersonService().getPeople();
+		rc.brandList = getBrandService().listBrands();
 	}
 }
