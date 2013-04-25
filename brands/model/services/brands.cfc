@@ -24,9 +24,8 @@
     </cffunction>
 
 	<cffunction name="createBrand" access="public" output="false" returntype="void">
-		<cfargument name="brandName" type="string" required="true"/>
-		<cfargument name="slug" type="string" required="true"/>
-		<cfset create = brandDAO.createBrand(brandName=arguments.brandName,slug=arguments.slug) />
+		<cfargument name="bean" type="struct" required="true"/>
+		<cfset create = brandDAO.createBrand(bean=arguments.bean) />
 	</cffunction>
 
 </cfcomponent>

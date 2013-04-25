@@ -33,15 +33,14 @@
 	</cffunction>
 
 	<cffunction name="createBrand" returntype="boolean" access="public" output="false">
-		<cfargument name="brandName" type="string" required="true">
-		<cfargument name="slug" type="string" required="true">
+		<cfargument name="bean" type="struct" required="true">
 		<cfquery datasource="tester" name="local.create">
 			INSERT INTO tblBrand(
 				BrandName
 				,Slug )
 			VALUES(
-				<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.brandName#" />
-				,<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.slug#" /> )
+				<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.bean.name#" />
+				,<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.bean.slug#" /> )
 		</cfquery>
 		<cfreturn True />
 	</cffunction>

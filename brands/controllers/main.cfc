@@ -3,8 +3,6 @@
 	<cfproperty name="brandsService" />
 	<cfset brandsService = createObject("component","brands.model.services.brands") />
 	<cfset variables.beanfactory = CreateObject("component", "brands.org.corfield.ioc").init("model/beans") />
-	<cfset variables.brands = variables.beanfactory.getBean("brand") />
-	<cfset variables.brandBean = variables.brands.getMemento() />
 
 	<cffunction name="init" returntype="Any" access="public">
 		<cfargument name="fw" type="any" required="true" />
@@ -47,9 +45,9 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-			<cfset local.brandBean = variables.brands.getMemento() && variables.brands.init(name=rc.brandName,slug=rc.slug,id=rc.brandID) />
-			<cfdump var="#local.brandBean#"
-			abort="true" />
+			<cfset local.brands = variables.beanfactory.getBean("brand") />
+			<cfset local.callBean = local.brands.init(name=rc.brandName,slug=rc.slug,id=rc.brandID) />
+			<cfset local.brandBean = local.callBean.getMemento() />
 				<cfset rc.brandEdit = getBrandsService().updateBrand(
 					bean=local.brandBean
 				) />
@@ -76,9 +74,11 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
+				<cfset local.brands = variables.beanfactory.getBean("brand") />
+				<cfset local.callBean = local.brands.init(name=rc.brandName,slug=rc.slug) />
+				<cfset local.brandBean = local.callBean.getMemento() />
 				<cfset brandCreate = getBrandsService().createBrand(
-					brandName=rc.brandName
-					,slug=rc.slug
+					bean=local.brandBean
 				) />
 				<cfthrow message = "Brand created successfully!"/>
 				<cfset rc.showForm = false />

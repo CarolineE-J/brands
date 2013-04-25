@@ -3,13 +3,16 @@
 	<cfproperty name="brandService" />
 	<cfset variables.brand = StructNew() />
 
-    <cffunction name="init" access="public" returntype="brand">
+    <cffunction name="init" access="public" returntype="struct">
         <cfargument name="slug" type="string" required="false" default="">
         <cfargument name="name" type="string" required="false" default="">
-        <cfargument name="id" type="string" required="false" default="0">
-        <cfset setSlug(arguments.slug) />
-        <cfset setBrandName(arguments.name) />
-        <cfset setBrandID(arguments.id) />
+        <cfargument name="id" type="string" required="false" default="">
+        <cfset data = {} />
+        <cfset this.setSlug(arguments.slug) />
+        <cfset this.setBrandName(arguments.name) />
+        <cfif structKeyExists(arguments, "id")>
+            <cfset this.setBrandID(arguments.id) />
+        </cfif>
         <cfreturn this />
     </cffunction>
 
