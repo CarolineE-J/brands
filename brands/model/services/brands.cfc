@@ -1,7 +1,7 @@
 <cfcomponent output="false">
 
 	<cfset brandDAO = createObject("component","brands.model.dao.brands") />
-	<!--- <cfproperty name="brandBean" default="" /> --->
+	<!--- <cfproperty "brandsDAO" /> --->
 
 	<cffunction name="init" output="false" access="public" returntype="any">
 		<cfreturn this>
