@@ -17,14 +17,16 @@
         <cfreturn local.data>
     </cffunction>
 
-    <cffunction name="updateBrand" access="public" output="false" returntype="void">
+    <cffunction name="updateBrand" access="public" output="false" returntype="boolean">
 		<cfargument name="bean" type="struct" required="true"/>
-		<cfset update = brandsDao.updateBrand(arguments.bean) />
+		<cfset local.update = brandsDao.updateBrand(arguments.bean) />
+		<cfreturn local.update />
     </cffunction>
 
-	<cffunction name="createBrand" access="public" output="false" returntype="void">
+	<cffunction name="createBrand" access="public" output="false" returntype="boolean">
 		<cfargument name="bean" type="struct" required="true"/>
-		<cfset create = brandsDao.createBrand(bean=arguments.bean) />
+		<cfset local.create = brandsDao.createBrand(bean=arguments.bean) />
+		<cfreturn local.create />
 	</cffunction>
 
 </cfcomponent>
