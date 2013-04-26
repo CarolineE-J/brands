@@ -26,30 +26,30 @@
 		<cfparam name="rc.brandID" default="" />
 
 		<cfif (rc.formSubmit neq 1)>
-			<cfset brand=brandsService.brandFromID(rc.brandID) />
-			<cfif brand.recordcount >
+			<cfset local.brand=brandsService.brandFromID(rc.brandID) />
+			<cfif local.brand.recordcount >
 				<cfset rc.slug = brand.Slug />
 				<cfset rc.brandName = brand.BrandName />
 			<cfelse>
 				<cfthrow message="Brand does not exist" />
 			</cfif>
 		<cfelse>
-			<!--- Edit form has been submitted --->
-			<cfif rc.slug eq "">
-				<cfthrow message = 'Error - Slug is required' />
-			</cfif>
-			<cfif rc.brandName eq "">
-				<cfthrow message = 'Error - Brand Name is required'/>
-			</cfif>
 			<cfif (rc.formError eq "")>
 			<cfset local.brands = fw.getBeanFactory().getBean("brand") />
 			<cfset local.callBean = local.brands.init(name=rc.brandName,slug=rc.slug,id=rc.brandID) />
-			<cfset local.brandBean = local.callBean.getMemento() />
-				<cfset rc.brandEdit = brandsService.updateBrand(
-					bean=local.brandBean
-				) />
-				<cfthrow message = "Brand saved successfully."/>
-				<cfset rc.showForm = false />
+			<cfset local.validate = local.callBean.validate() />
+				<cfif local.validate eq "">
+					<cfset local.brandBean = local.callBean.getMemento() />
+					<cfset rc.brandEdit = brandsService.updateBrand(
+						bean=local.brandBean
+					) />
+					<cfif rc.brandEdit>
+						<cfthrow message = "Brand saved successfully."/>
+						<cfset rc.showForm = false />
+					</cfif>
+				<cfelse>
+					<cfthrow message = "#local.validate#">
+				</cfif>
 			</cfif>
 		</cfif>
 	</cffunction>
@@ -64,21 +64,22 @@
 		<cfparam name="rc.brandName" default="" />
 
 		<cfif (rc.formSubmit eq 1)>
-			<cfif rc.slug eq "">
-				<cfthrow message = 'Error - Slug is required' />
-			</cfif>
-			<cfif rc.brandName eq "">
-				<cfthrow message = 'Error - Brand Name is required'/>
-			</cfif>
 			<cfif (rc.formError eq "")>
 				<cfset local.brands = fw.getBeanFactory().getBean("brand") />
 				<cfset local.callBean = local.brands.init(name=rc.brandName,slug=rc.slug) />
-				<cfset local.brandBean = local.callBean.getMemento() />
-				<cfset brandCreate = brandsService.createBrand(
-					bean=local.brandBean
-				) />
-				<cfthrow message = "Brand created successfully!"/>
-				<cfset rc.showForm = false />
+				<cfset local.validate = local.callBean.validate() />
+				<cfif local.validate eq "">
+					<cfset local.brandBean = local.callBean.getMemento() />
+					<cfset rc.brandCreate = brandsService.createBrand(
+						bean=local.brandBean
+					) />
+					<cfif rc.brandCreate>
+						<cfthrow message = "Brand created successfully!"/>
+						<cfset rc.showForm = false />
+					</cfif>
+				<cfelse>
+					<cfthrow message = "#local.validate#">
+				</cfif>
 			<cfelse>
 				<cfthrow message = "Unable to load brand" />
 			</cfif>
