@@ -1,9 +1,10 @@
 <cfcomponent accessors="true">
 
-	<cfproperty name="framework" />
 	<cfproperty name="brandsService" />
 
 	<cffunction name="init" returntype="Any" access="public">
+		<cfargument name="fw" required="true" type="any"/>
+		<cfset variables.fw = arguments.fw />
 		<cfreturn this />
 	</cffunction>
 
@@ -24,9 +25,8 @@
 		<cfparam name="rc.brandName" default="" />
 		<cfparam name="rc.brandID" default="" />
 
-		<cfset brand=brandsService.brandFromID(rc.brandID) />
-
 		<cfif (rc.formSubmit neq 1)>
+			<cfset brand=brandsService.brandFromID(rc.brandID) />
 			<cfif brand.recordcount >
 				<cfset rc.slug = brand.Slug />
 				<cfset rc.brandName = brand.BrandName />
@@ -42,10 +42,10 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-			<cfset local.brands = variables.framework.getBean("brand") />
+			<cfset local.brands = fw.getBeanFactory().getBean("brand") />
 			<cfset local.callBean = local.brands.init(name=rc.brandName,slug=rc.slug,id=rc.brandID) />
 			<cfset local.brandBean = local.callBean.getMemento() />
-				<cfset rc.brandEdit = getBrandsService().updateBrand(
+				<cfset rc.brandEdit = brandsService.updateBrand(
 					bean=local.brandBean
 				) />
 				<cfthrow message = "Brand saved successfully."/>
@@ -71,10 +71,10 @@
 				<cfthrow message = 'Error - Brand Name is required'/>
 			</cfif>
 			<cfif (rc.formError eq "")>
-				<cfset local.brands = getFramework().getBean("brand") />
+				<cfset local.brands = fw.getBeanFactory().getBean("brand") />
 				<cfset local.callBean = local.brands.init(name=rc.brandName,slug=rc.slug) />
 				<cfset local.brandBean = local.callBean.getMemento() />
-				<cfset brandCreate = getBrandsService().createBrand(
+				<cfset brandCreate = brandsService.createBrand(
 					bean=local.brandBean
 				) />
 				<cfthrow message = "Brand created successfully!"/>
