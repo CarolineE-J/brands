@@ -1,6 +1,5 @@
 <cfcomponent accessors="true">
 
-	<cfproperty name="brandService" />
 	<cfset variables.brand = StructNew() />
 
     <cffunction name="init" access="public" returntype="struct">

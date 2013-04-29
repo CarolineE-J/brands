@@ -22,25 +22,28 @@
 	</cffunction>
 
 	<cffunction name="updateBrand" access="public" returntype="boolean" output="false">
-		<cfargument name="bean" type="struct" required="true">
+		<cfargument name="name" type="string" required="true" />
+		<cfargument name="slug" type="string" required="true" />
+		<cfargument name="id" type="numeric" required="true" />
 		<cfquery datasource="tester" name="local.update">
 			UPDATE tblBrand
-			SET BrandName=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.bean.name#" />
-				,Slug=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.bean.slug#" />
-			WHERE BrandId=<cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.bean.id#" />
+			SET BrandName=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.name#" />
+				,Slug=<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.slug#" />
+			WHERE BrandId=<cfqueryparam cfsqltype="cf_sql_integer" value="#arguments.id#" />
 		</cfquery>
 		<cfreturn True />
 	</cffunction>
 
 	<cffunction name="createBrand" returntype="boolean" access="public" output="false">
-		<cfargument name="bean" type="struct" required="true">
+		<cfargument name="name" type="string" required="true" />
+		<cfargument name="slug" type="string" required="true" />
 		<cfquery datasource="tester" name="local.create">
 			INSERT INTO tblBrand(
 				BrandName
 				,Slug )
 			VALUES(
-				<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.bean.name#" />
-				,<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.bean.slug#" /> )
+				<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.name#" />
+				,<cfqueryparam cfsqltype="cf_sql_varchar" value="#arguments.slug#" /> )
 		</cfquery>
 		<cfreturn True />
 	</cffunction>
