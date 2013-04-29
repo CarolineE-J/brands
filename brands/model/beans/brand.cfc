@@ -37,15 +37,15 @@
 		<cfreturn errors />
     </cffunction>
 
-    <cffunction name="getBrandID" access="public" returntype="string">
-        <cfreturn variables.brand.id>
+    <cffunction name="getBrandID" access="public" output="false" returntype="string">
+        <cfreturn trim(variables.brand.id)>
     </cffunction>
     <cffunction name="setBrandID" access="public" returntype="void">
         <cfargument name="id" type="string" required="true">
         <cfset variables.brand.id = arguments.id>
     </cffunction>
 
-    <cffunction name="getSlug" access="public" returntype="string">
+    <cffunction name="getSlug" output="false" access="public" returntype="string">
         <cfreturn variables.brand.slug>
     </cffunction>
     <cffunction name="setSlug" access="public" returntype="void">
@@ -53,8 +53,8 @@
         <cfset variables.brand.slug = arguments.slug>
     </cffunction>
 
-    <cffunction name="getBrandName" access="public" returntype="string">
-        <cfreturn variables.brand.name>
+    <cffunction name="getBrandName" access="public" output="false" returntype="string">
+        <cfreturn trim(variables.brand.name)>
     </cffunction>
     <cffunction name="setBrandName" access="public" returntype="void">
         <cfargument name="name" type="string" required="true">
