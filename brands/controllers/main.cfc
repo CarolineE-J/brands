@@ -23,12 +23,12 @@
 		<cfparam name="rc.slug" default="" />
 		<cfparam name="rc.brandName" default="" />
 		<cfparam name="rc.brandID" default="" />
+		<cfparam name="rc.brand" default="" />
 
 		<cfif (rc.formSubmit neq 1)>
 			<cfset local.brand=brandsService.brandFromID(rc.brandID) />
 			<cfif local.brand.recordcount >
-				<cfset rc.slug = brand.Slug />
-				<cfset rc.brandName = brand.BrandName />
+				<cfset rc.brand = fw.getBeanFactory().getBean("brand").init(name=brand.BrandName,slug=brand.Slug) />
 			<cfelse>
 				<cfthrow message="Brand does not exist" />
 			</cfif>
