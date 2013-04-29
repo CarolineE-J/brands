@@ -17,7 +17,6 @@
 		<cfargument name="rc" type="any" required="true" />
 		<cfset rc.formSuccess = "" />
 		<cfset rc.showForm = true />
-		<cfset rc.brandEdit = "" />
 
 		<cfparam name="rc.formSubmit" default="0" />
 		<cfparam name="rc.slug" default="" />
@@ -38,10 +37,10 @@
 			<cfset local.brand = fw.getBeanFactory().getBean("brand").init(name=rc.brandName,slug=rc.slug,id=rc.brandID) />
 			<cfset local.validate = local.brand.validate() />
 				<cfif local.validate eq "">
-					<cfset rc.brandEdit = brandsService.editBrand(
+					<cfset local.brandEdit = brandsService.editBrand(
 						brandBean=local.brand
 					) />
-					<cfif rc.brandEdit>
+					<cfif local.brandEdit>
 						<cfset rc.formSuccess = "Brand saved successfully."/>
 						<cfset rc.showForm = false />
 					</cfif>
@@ -65,10 +64,10 @@
 			<cfset local.brand = fw.getBeanFactory().getBean("brand").init(name=rc.brandName,slug=rc.slug) />
 			<cfset local.validate = local.brand.validate() />
 			<cfif local.validate eq "">
-				<cfset rc.brandCreate = brandsService.createBrand(
+				<cfset local.brandCreate = brandsService.createBrand(
 					brandBean=local.brand
 				) />
-				<cfif rc.brandCreate>
+				<cfif local.brandCreate>
 					<cfset rc.formSuccess = "Brand created successfully!"/>
 					<cfset rc.showForm = false />
 				</cfif>
