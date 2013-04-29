@@ -21,7 +21,7 @@
 		<cfreturn local.data />
 	</cffunction>
 
-	<cffunction name="updateBrand" access="public" returntype="boolean" output="false">
+	<cffunction name="editBrand" access="public" returntype="boolean" output="false">
 		<cfargument name="name" type="string" required="true" />
 		<cfargument name="slug" type="string" required="true" />
 		<cfargument name="id" type="numeric" required="true" />
