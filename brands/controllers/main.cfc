@@ -24,28 +24,29 @@
 		<cfparam name="rc.brandName" default="" />
 		<cfparam name="rc.brandID" default="" />
 		<cfparam name="rc.brand" default="" />
+		<cfparam name="rc.formSuccess" default="" />
+		<cfparam name="rc.formError" default="" />
 
 		<cfif (rc.formSubmit neq 1)>
 			<cfset local.brand=brandsService.brandFromID(rc.brandID) />
 			<cfif local.brand.recordcount >
 				<cfset rc.brand = fw.getBeanFactory().getBean("brand").init(name=brand.BrandName,slug=brand.Slug) />
 			<cfelse>
-				<cfthrow message="Brand does not exist" />
+				<cfset rc.formError="Brand does not exist" />
 			</cfif>
 		<cfelse>
 			<cfset local.brand = fw.getBeanFactory().getBean("brand").init(name=rc.brandName,slug=rc.slug,id=rc.brandID) />
 			<cfset local.validate = local.brand.validate() />
 				<cfif local.validate eq "">
-					<cfset local.brandBean = local.brand.getMemento() />
 					<cfset rc.brandEdit = brandsService.editBrand(
-						brandInfo=local.brandBean
+						brandBean=local.brand
 					) />
 					<cfif rc.brandEdit>
-						<cfthrow message = "Brand saved successfully."/>
+						<cfset rc.formSuccess = "Brand saved successfully."/>
 						<cfset rc.showForm = false />
 					</cfif>
 				<cfelse>
-					<cfthrow message = "#local.validate#">
+					<cfset rc.formError = "#local.validate#">
 				</cfif>
 		</cfif>
 	</cffunction>
@@ -57,21 +58,22 @@
 		<cfparam name="rc.formSubmit" default="0" />
 		<cfparam name="rc.slug" default="" />
 		<cfparam name="rc.brandName" default="" />
+		<cfparam name="rc.formSuccess" default="" />
+		<cfparam name="rc.formError" default="" />
 
 		<cfif rc.formSubmit eq 1>
 			<cfset local.brand = fw.getBeanFactory().getBean("brand").init(name=rc.brandName,slug=rc.slug) />
 			<cfset local.validate = local.brand.validate() />
 			<cfif local.validate eq "">
-				<cfset local.brandBean = local.brand.getMemento() />
 				<cfset rc.brandCreate = brandsService.createBrand(
-					brandInfo=local.brandBean
+					brandBean=local.brand
 				) />
 				<cfif rc.brandCreate>
-					<cfthrow message = "Brand created successfully!"/>
+					<cfset rc.formSuccess = "Brand created successfully!"/>
 					<cfset rc.showForm = false />
 				</cfif>
 			<cfelse>
-				<cfthrow message = "#local.validate#">
+				<cfset rc.formError = "#local.validate#">
 			</cfif>
 		</cfif>
 	</cffunction>
