@@ -29,7 +29,7 @@
 		<cfif (rc.formSubmit neq 1)>
 			<cfset local.brand=brandsService.brandFromID(rc.brandID) />
 			<cfif local.brand.recordcount >
-				<cfset rc.brand = fw.getBeanFactory().getBean("brand").init(name=brand.BrandName,slug=brand.Slug) />
+				<cfset rc.brand = local.brand />
 			<cfelse>
 				<cfset rc.formError="Brand does not exist" />
 			</cfif>

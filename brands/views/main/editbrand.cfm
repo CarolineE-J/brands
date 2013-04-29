@@ -13,8 +13,8 @@
     <cfif rc.showForm>
         <form action="#buildUrl(action='main.editbrand', queryString='brandID=' & rc.brandID)#" method="post">
             <input type="hidden" name="formSubmit" value="1" />
-            <p>Brand name: <input type="text" name="brandName" width="10" value="#rc.brand.getBrandName()#"></p>
-            <p>Slug: <input type="text" name="slug" width="10" value="#rc.brand.getSlug()#"></p>
+            <p>Brand name: <input type="text" name="brandName" width="10" value="#rc.brand.BrandName#"></p>
+            <p>Slug: <input type="text" name="slug" width="10" value="#rc.brand.Slug#"></p>
             <p><button type="submit">Update</button></p>
         </form>
     </cfif>
