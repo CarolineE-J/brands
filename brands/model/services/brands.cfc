@@ -17,21 +17,21 @@
         <cfreturn local.data>
     </cffunction>
 
-    <cffunction name="updateBrand" access="public" output="false" returntype="boolean">
-		<cfargument name="bean" type="struct" required="true"/>
-		<cfset local.update = brandsDao.updateBrand(
-			name=arguments.bean.name,
-			slug=arguments.bean.slug,
-			id=arguments.bean.id
+    <cffunction name="editBrand" access="public" output="false" returntype="boolean">
+		<cfargument name="brandInfo" type="struct" required="true"/>
+		<cfset local.update = brandsDao.editBrand(
+			name=arguments.brandInfo.name,
+			slug=arguments.brandInfo.slug,
+			id=arguments.brandInfo.id
 		) />
 		<cfreturn local.update />
     </cffunction>
 
 	<cffunction name="createBrand" access="public" output="false" returntype="boolean">
-		<cfargument name="bean" type="struct" required="true"/>
+		<cfargument name="brandInfo" type="struct" required="true"/>
 		<cfset local.create = brandsDao.createBrand(
-			name=arguments.bean.name
-			,slug=arguments.bean.slug
+			name=arguments.brandInfo.name
+			,slug=arguments.brandInfo.slug
 			) />
 		<cfreturn local.create />
 	</cffunction>
