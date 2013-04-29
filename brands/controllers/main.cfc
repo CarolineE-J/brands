@@ -37,8 +37,8 @@
 			<cfset local.validate = local.brand.validate() />
 				<cfif local.validate eq "">
 					<cfset local.brandBean = local.brand.getMemento() />
-					<cfset rc.brandEdit = brandsService.updateBrand(
-						bean=local.brandBean
+					<cfset rc.brandEdit = brandsService.editBrand(
+						brandInfo=local.brandBean
 					) />
 					<cfif rc.brandEdit>
 						<cfthrow message = "Brand saved successfully."/>
@@ -64,7 +64,7 @@
 			<cfif local.validate eq "">
 				<cfset local.brandBean = local.brand.getMemento() />
 				<cfset rc.brandCreate = brandsService.createBrand(
-					bean=local.brandBean
+					brandInfo=local.brandBean
 				) />
 				<cfif rc.brandCreate>
 					<cfthrow message = "Brand created successfully!"/>
