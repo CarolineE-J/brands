@@ -9,7 +9,8 @@ component extends="org.corfield.framework" {
 		defaultSection = 'main',
 		defaultItem = 'default',
 		home = 'main.default',
-		reload = 'reload'	};
+		reload = 'reload'
+  		/* password = 'lovehoney', */ };
 
 	/* At the start of each request, the controller/service cache is cleared and setupApplication() is executed. */
 	variables.framework.reloadApplicationOnEveryRequest = true;
