@@ -20,9 +20,9 @@
     <cffunction name="editBrand" access="public" output="false" returntype="boolean">
 		<cfargument name="brandBean" type="brand" required="true"/>
 		<cfset local.update = brandsDao.editBrand(
-			name=arguments.brandBean.getBrandName(),
+			brandName=arguments.brandBean.getBrandName(),
 			slug=arguments.brandBean.getSlug(),
-			id=arguments.brandBean.getBrandID()
+			brandID=arguments.brandBean.getBrandID()
 		) />
 		<cfreturn local.update />
     </cffunction>
@@ -30,7 +30,7 @@
 	<cffunction name="createBrand" access="public" output="false" returntype="boolean">
 		<cfargument name="brandBean" type="brand" required="true"/>
 		<cfset local.create = brandsDao.createBrand(
-			name=arguments.brandBean.getBrandName()
+			brandName=arguments.brandBean.getBrandName()
 			,slug=arguments.brandBean.getSlug()
 			) />
 		<cfreturn local.create />
