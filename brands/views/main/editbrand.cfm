@@ -1,13 +1,12 @@
 <cfoutput>
     <h2>Edit Brand</h2>
-    <p><a href="#buildUrl('main.default')#">Back to Brand List</a></p>
 
     <cfif rc.formSuccess neq "">
-        <p style="color:##0C3;font-weight:bold;">#rc.formSuccess#</p>
+        <p style="color:##00cc33;font-weight:bold;">#rc.formSuccess#</p>
     </cfif>
 
     <cfif rc.formError neq "">
-        <p style="color:##C00;font-weight:bold;">#rc.formError#</p>
+        <p style="color:##cc0000;font-weight:bold;">#rc.formError#</p>
     </cfif>
 
     <cfif rc.showForm>
@@ -18,4 +17,8 @@
             <p><button type="submit">Update</button></p>
         </form>
     </cfif>
+
+    <p><a href="#buildUrl('main.default')#">Back to Brand List</a></p>
+    <p><a href="#buildUrl('main.createbrand')#">Create New Brand</a></p>
+
 </cfoutput>
