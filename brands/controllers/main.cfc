@@ -35,7 +35,10 @@
 		<cfelse>
 			<cfset local.bean = fw.getBeanFactory().getBean("brand").init(name=rc.brandName,slug=rc.slug,id=rc.brandID) />
 			<cfset local.validate = local.bean.validate() />
-			<cfif local.validate eq "">
+			<cfif arrayLen(local.validate)>
+				<cfset rc.formError = arrayToList(local.validate)>
+				<cfset rc.showForm = true />
+			<cfelse>
 				<cfset local.brandEdit = brandsService.editBrand(
 					brandBean=local.bean
 				) />
@@ -43,9 +46,6 @@
 					<cfset rc.formSuccess = "Brand saved successfully."/>
 					<cfset rc.showForm = false />
 				</cfif>
-			<cfelse>
-				<cfset rc.formError = "#local.validate#">
-				<cfset rc.showForm = true />
 			</cfif>
 		</cfif>
 	</cffunction>
