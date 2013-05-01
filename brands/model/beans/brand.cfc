@@ -20,24 +20,21 @@
 		<cfreturn variables.brand />
 	</cffunction>
 
-    <cffunction name="validate" access="public" returntype="string" output="false">
-    	<cfset var errors = "" />
+    <cffunction name="validate" access="public" returntype="array" output="false">
+    	<cfset var errors = arrayNew(1) />
     	<!--- Brand ID not always required (create function) so there's no check to see if it exists only---->
     	<cfif (len(trim(getBrandID())) AND NOT isNumeric(trim(getBrandID())))>
-    		<cfset errors = "Error - ID must be numeric." />
+    		<cfset arrayAppend(errors, "Error - ID must be numeric.") />
     	</cfif>
         <!--- Slug will always be required for the bean --->
-    	<cfif (NOT len(trim(getSlug())))>
-			<cfset errors = "Error - Slug is required." />
-		</cfif>
-        <!--- Brand name will always be required for the bean --->
-		<cfif (NOT len(trim(getBrandName())))>
-			<cfset errors = "Error - Brand Name is required." />
-		</cfif>
-        <cfif (NOT len(getBrandName()) AND NOT len(getSlug()))>
-            <cfset errors = "Error - Brand Name and Slug are required." />
+        <cfif (NOT len(trim(getSlug())))>
+            <cfset arrayAppend(errors, "Slug is required") />
         </cfif>
-		<cfreturn errors />
+        <!--- Brand name will always be required for the bean --->
+        <cfif (NOT len(trim(getBrandName())))>
+            <cfset arrayAppend(errors, " Brand Name is required") />
+        </cfif>
+        <cfreturn errors />
     </cffunction>
 
     <cffunction name="getBrandID" access="public" returntype="string" output="false">
