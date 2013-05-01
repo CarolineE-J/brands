@@ -34,6 +34,9 @@
 		<cfif (NOT len(trim(getBrandName())))>
 			<cfset errors = "Error - Brand Name is required." />
 		</cfif>
+        <cfif (NOT len(getBrandName()) AND NOT len(getSlug()))>
+            <cfset errors = "Error - Brand Name and Slug are required." />
+        </cfif>
 		<cfreturn errors />
     </cffunction>
 
