@@ -38,7 +38,7 @@
     </cffunction>
 
     <cffunction name="getBrandID" access="public" output="false" returntype="string">
-        <cfreturn trim(variables.brand.id)>
+        <cfreturn variables.brand.id>
     </cffunction>
     <cffunction name="setBrandID" access="public" returntype="void">
         <cfargument name="id" type="string" required="true">
@@ -54,7 +54,7 @@
     </cffunction>
 
     <cffunction name="getBrandName" access="public" output="false" returntype="string">
-        <cfreturn trim(variables.brand.name)>
+        <cfreturn variables.brand.name>
     </cffunction>
     <cffunction name="setBrandName" access="public" returntype="void">
         <cfargument name="name" type="string" required="true">
