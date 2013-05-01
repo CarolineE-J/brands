@@ -1,4 +1,4 @@
-<cfcomponent accessors="true">
+<cfcomponent accessors="true" output="false">
 
 	<cfset variables.brand = StructNew() />
 
@@ -37,7 +37,7 @@
 		<cfreturn errors />
     </cffunction>
 
-    <cffunction name="getBrandID" access="public" output="false" returntype="string">
+    <cffunction name="getBrandID" access="public" returntype="string" output="false">
         <cfreturn variables.brand.id>
     </cffunction>
     <cffunction name="setBrandID" access="public" returntype="void">
@@ -45,7 +45,7 @@
         <cfset variables.brand.id = arguments.id>
     </cffunction>
 
-    <cffunction name="getSlug" output="false" access="public" returntype="string">
+    <cffunction name="getSlug" access="public" returntype="string" output="false">
         <cfreturn variables.brand.slug>
     </cffunction>
     <cffunction name="setSlug" access="public" returntype="void">
@@ -53,7 +53,7 @@
         <cfset variables.brand.slug = arguments.slug>
     </cffunction>
 
-    <cffunction name="getBrandName" access="public" output="false" returntype="string">
+    <cffunction name="getBrandName" access="public" returntype="string" output="false">
         <cfreturn variables.brand.name>
     </cffunction>
     <cffunction name="setBrandName" access="public" returntype="void">
